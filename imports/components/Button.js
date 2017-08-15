@@ -4,7 +4,7 @@ class Button extends Component {
   render() {
     return (
       <div>
-         <button className="uk-button uk-button-default uk-button-large"><i className="fa fa-twitter uk-margin-right-small" aria-hidden="true"></i>Sign in using your Twitter</button>
+         <button className={"uk-button uk-button-" + this.props.type}>{this.props.children}</button>
       </div>
     );
   }
