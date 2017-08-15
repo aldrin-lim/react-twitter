@@ -1,15 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Session } from 'meteor/session';
+import { autobind } from 'core-decorators';
+import TweetItem from '../../components/TweetItem';
+import _ from 'lodash';
+Meteor._debug = (function (super_meteor_debug) {
+  return function (error, info) {
+    if (!(info && _.has(info, 'msg')))
+      super_meteor_debug(error, info);
+  }
+})(Meteor._debug);
+@autobind
 class Home extends Component {
-  componentDidMount(){
-    Meteor.call("getStreamHome", Session.get("accessToken"), Session.get("accessTokenSecret"), (error, result) => {
-      if(!error){
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      loaded: true,
+      streamData: []
+    };
+  }
+  componentDidMount() {
+    Meteor.call('stream', Session.get("accessToken"), Session.get("accessTokenSecret"), (error, result) => {
+      if (!error) {
         console.log(result)
-        
+        this.setState({
+          loading: false,
+          data: this.state.data.concat(result)
+        });
       } else {
-        console.log(error);
+        console.log(error)
+        // console.error(error)
       }
+    });
+    Streamy.on('tweet', (data, s) => {
+      console.log(data)
+      this.setState({
+        data: _.uniq([data].concat(this.state.data), item => item.id  )
+      });
     });
   }
   render() {
@@ -17,10 +45,17 @@ class Home extends Component {
       <div>
         <h4>Tweets</h4>
         <ul className="uk-list uk-list-large uk-list-divider">
-          <li>List item 1</li>
-          <li>List item 2</li>
-          <li>List item 3</li>
+          {
+            this.state.data.map((item, i) => {
+              return (
+                <li key={i}>
+                  <TweetItem time={item.created_at} pic={item.user.profile_image_url} name={item.user.name} screenname={item.user.screen_name} text={item.text}/>
+                </li>
+              );
+            })
+          }
         </ul>
+
       </div>
     );
   }
