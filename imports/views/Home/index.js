@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Session } from 'meteor/session';
+
+
+
 class Home extends Component {
   componentDidMount(){
+    Meteor.call('stream', Session.get("accessToken"), Session.get("accessTokenSecret") ,(error, result) => {
+      // console.log(result);
+      // console.log(error);
+    });
+    Streamy.on('hello', function(data, s) {
+      console.log(data.text)
+    });
   }
   render() {
     return (
