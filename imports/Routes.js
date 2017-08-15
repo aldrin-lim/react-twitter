@@ -6,11 +6,16 @@
 import React, { Component } from 'react';
 import { browserHistory, IndexRoute, Router, Route } from 'react-router';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import { Session } from 'meteor/session';
+import { createStore } from 'redux';
 import MainLayout from './layout/MainLayout';
 import Home from './views/Home';
 import Login from './views/Login';
+import Callback from './components/Callback';
+import Reducer from './reducer';
 // Redux Store
+const store = createStore(Reducer);
 
 const auth = (nextState, replace) => {
   if (!Session.get("isLoggedIn")) {
@@ -18,18 +23,6 @@ const auth = (nextState, replace) => {
   }
 }
 
-const callback = (nextState, replace) => {
-  Meteor.call("auth",Session.get("requestToken"),Session.get("requestTokenSecret"), nextState.location.query.oauth_verifier, (error, result) => {
-    if(!error){
-      Session.setPersistent("isLoggedIn", true);
-      Session.setPersistent("accessToken", result.accessToken);
-      Session.setPersistent("accessTokenSecret", result.accessTokenSecret);
-      browserHistory.push("/");
-    } else {
-      replace("/login");
-    }
-  });
-}
 
 const logout = () => {
   Session.clearPersistent();
@@ -37,14 +30,16 @@ const logout = () => {
 }
 
 const DefaultRoutes = (
-  <Router history={browserHistory}>
-    <Route path="/" component={MainLayout} onEnter={auth}>
-      <IndexRoute component={Home} />
-    </Route>
-    <Route path="/login" component={Login} />
-    <Route path="/callback" onEnter={callback} />
-    <Route path="/logout" onEnter={logout} />
-  </Router>
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={MainLayout} onEnter={auth}>
+        <IndexRoute component={Home} />
+      </Route>
+      <Route path="/login" component={Login} />
+      <Route path="/callback" component={Callback} />
+      <Route path="/logout" onEnter={logout} />
+    </Router>
+  </Provider>
 );
 
 render((

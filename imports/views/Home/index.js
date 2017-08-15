@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 class Home extends Component {
   componentDidMount(){
-    
   }
   render() {
     return (
@@ -17,5 +16,15 @@ class Home extends Component {
     );
   }
 }
+/**
+ * Redux State as Props
+ * @param {*} state 
+ */
+const mapStateToProps = (state) => {
+  return {
+    redux: state
+  };
+};
+// export default connect(mapStateToProps)(MainLayout);
 
-export default Home;
+export default connect(mapStateToProps)(Home)
