@@ -1,1 +1,4 @@
 /* CSS declarations go here */
+body,html,#render-target{
+  height: 100%;
+}
