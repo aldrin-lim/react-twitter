@@ -32,7 +32,7 @@ class MainLayout extends Component {
             <div className="uk-navbar-right">
               <ul className="uk-navbar-nav">
                 <li>
-                  <a href="#">Aldrin Lim</a>
+                  <a href="#">{Session.get("user").name}</a>
                   <div className="uk-navbar-dropdown">
                     <ul className="uk-nav uk-navbar-dropdown-nav">
                       <li  onClick={this.logout} className="uk-active"><a href="#">Logut</a></li>

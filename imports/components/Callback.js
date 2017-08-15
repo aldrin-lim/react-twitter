@@ -15,8 +15,10 @@ class Callback extends Component {
         this.props.setUserData(Object.assign({},result.user));
         browserHistory.push("/");
       } else {
+        console.log("error")
         Session.setPersistent("isLoggedIn", false);
-        replace("/login");
+        alert("Error Signing in. Please Try Again");
+        browserHistory.push("/");
       }
     });
   }

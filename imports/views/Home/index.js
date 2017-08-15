@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Session } from 'meteor/session';
 import { autobind } from 'core-decorators';
 import TweetItem from '../../components/TweetItem';
+import Spinner from '../../components/Spinner';
 import _ from 'lodash';
 Meteor._debug = (function (super_meteor_debug) {
   return function (error, info) {
@@ -16,7 +17,7 @@ class Home extends Component {
     super(props);
     this.state = {
       data: [],
-      loaded: true,
+      loading: true,
       streamData: []
     };
   }
@@ -29,7 +30,8 @@ class Home extends Component {
           data: this.state.data.concat(result)
         });
       } else {
-        console.log(error)
+        alert("Error fetching data");
+        // console.log(error)
         // console.error(error)
       }
     });
@@ -41,6 +43,9 @@ class Home extends Component {
     });
   }
   render() {
+    if(this.state.loading){
+      return (<Spinner/>);
+    }
     return (
       <div>
         <h4>Tweets</h4>
@@ -55,7 +60,6 @@ class Home extends Component {
             })
           }
         </ul>
-
       </div>
     );
   }
