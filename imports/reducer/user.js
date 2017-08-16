@@ -3,7 +3,7 @@
  * Reducer for Phone Units
  */
 
-export default (state = {}, action) => {
+export default (state = Session.get("user") || {}, action) => {
   switch(action.type){
     case 'SET_USER':
       return Object.assign({}, action.payload);

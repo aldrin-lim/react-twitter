@@ -3,7 +3,7 @@ import { setUserData, unsetUserData } from '../actions';
 import { connect } from 'react-redux';
 import { Session } from 'meteor/session';
 import { browserHistory } from 'react-router';
-
+import Spinner from './Spinner';
 class Callback extends Component {
   componentDidMount(){
     Meteor.call("auth", Session.get("requestToken"), Session.get("requestTokenSecret"), this.props.location.query.oauth_verifier, (error, result) => {
@@ -11,6 +11,7 @@ class Callback extends Component {
         Session.setPersistent("isLoggedIn", true);
         Session.setPersistent("accessToken", result.accessToken);
         Session.setPersistent("accessTokenSecret", result.accessTokenSecret);
+        Session.setPersistent("user", result.user);
         this.props.setUserData(Object.assign({},result.user));
         browserHistory.push("/");
       } else {
@@ -21,8 +22,8 @@ class Callback extends Component {
   }
   render() {
     return (
-      <div>
-        CALLBACK
+      <div className="uk-flext uk-flext-center uk-margin-top">
+        <Spinner/>
       </div>
     );
   }

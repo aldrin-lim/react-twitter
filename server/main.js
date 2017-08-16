@@ -25,9 +25,6 @@ Meteor.startup(() => {
     },
     auth(requestToken, requestTokenSecret, oauth_verifier) {
       return new Promise((resolve, reject) => {
-        console.log(requestToken);
-        console.log(requestTokenSecret);
-        console.log(oauth_verifier);
         twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function (error, accessToken, accessTokenSecret, results) {
           if (error) {
             reject("Error getting OAuth ACCESS token : " + error);
@@ -49,7 +46,24 @@ Meteor.startup(() => {
           }
         });
       });
-
+    },
+    getStreamHome(access_token_key,access_token_secret){
+      return new Promise((resolve, reject) => {
+        twitter.getStream("user", {} , access_token_key ,access_token_secret , function (error, results) {
+          console.log(error)
+          resolve({
+            errro: error,
+            results: results
+          })
+        },
+        function (error, results) {
+          console.log(error)
+          resolve({
+            errro: error,
+            results: results
+          })
+        });
+      });
     }
   });
 }); 

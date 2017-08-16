@@ -28,7 +28,7 @@ class Login extends Component {
         if (!error) {
           Session.setPersistent("requestToken", result.requestToken);
           Session.setPersistent("requestTokenSecret", result.requestTokenSecret);
-          window.open(result.getAuthUrl, '_blank');
+          window.open("https://api.twitter.com/oauth/authorize?oauth_token="+result.requestToken, '_blank');
         } else {
 
         }

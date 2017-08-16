@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Session } from 'meteor/session';
 class Home extends Component {
   componentDidMount(){
+    Meteor.call("getStreamHome", Session.get("accessToken"), Session.get("accessTokenSecret"), (error, result) => {
+      if(!error){
+        console.log(result)
+        
+      } else {
+        console.log(error);
+      }
+    });
   }
   render() {
     return (
