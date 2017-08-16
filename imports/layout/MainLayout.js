@@ -21,18 +21,15 @@ class MainLayout extends Component {
       <div>
         <nav className="uk-navbar-container" data-uk-navbar>
           <div className="uk-navbar-left">
-            <ul className="uk-navbar-nav">
-              <li>
-                <a href="#">TWITTER FEED</a>
-              </li>
-            </ul>
+            <a className="uk-navbar-item uk-logo" href="#">Twitter React</a>
           </div>
           { 
             Session.get("isLoggedIn") && 
             <div className="uk-navbar-right">
               <ul className="uk-navbar-nav">
                 <li>
-                  <a href="#">{Session.get("user").name}</a>
+                  
+                  <a href="#"><img style={{borderRadius: 999, border: "solid 1px #aaa", marginRight: "10px"}}  width="40" src={Session.get("user").profile_image_url} />  {Session.get("user").name}</a>
                   <div className="uk-navbar-dropdown">
                     <ul className="uk-nav uk-navbar-dropdown-nav">
                       <li  onClick={this.logout} className="uk-active"><a href="#">Logut</a></li>

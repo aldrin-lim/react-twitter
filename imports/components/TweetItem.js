@@ -5,7 +5,7 @@ class TweetItem extends Component {
     return (
       <div className="" data-uk-grid>
         <div className="uk-width-auto" style={{ padding: 0 }}>
-          <img className="uk-float-left uk-inline" width="40" src={this.props.pic} />
+          <img  style={{borderRadius: 999, border: "solid 1px #aaa"}} className="uk-float-left uk-inline uk-margin-right-small" width="50" src={this.props.pic} />
         </div>
         <div className="uk-width-expand" style={{ padding: "0 10px" }}>
           <div>

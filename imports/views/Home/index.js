@@ -24,18 +24,16 @@ class Home extends Component {
   componentDidMount() {
     Meteor.call('stream', Session.get("accessToken"), Session.get("accessTokenSecret"), (error, result) => {
       if (!error) {
-        console.log(result)
         this.setState({
           loading: false,
           data: this.state.data.concat(result)
         });
       } else {
-        alert("Error fetching data");
+        alert("Error fetching data. Reload the page");
         // console.log(error)
         // console.error(error)
       }
     });
-    Streamy.on('tweet', (data, s) => {
       console.log(data)
       this.setState({
         data: _.uniq([data].concat(this.state.data), item => item.id  )

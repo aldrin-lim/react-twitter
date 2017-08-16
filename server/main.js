@@ -85,7 +85,6 @@ Meteor.startup(() => {
           stream.on('data', function (event) {
             // resolve(event)
             Streamy.broadcast('tweet', event);
-            console.log(event && event.text);
           });
           stream.on('error', function (error) {
             reject(error)
