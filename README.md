@@ -5,7 +5,7 @@ A React JS application using Meteor JS and Twitter REST and Stream API.
 
 ## How to run:
 
-- Install ![Meteor JS](https://www.meteor.com/install).
+- Install [Meteor JS](https://www.meteor.com/install).
 - Install all required packages.
 ```
 npm install
