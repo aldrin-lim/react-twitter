@@ -5,7 +5,7 @@ A React JS application using Meteor JS and Twitter REST and Stream API.
 
 ## How to run:
 
-- Install ![Meteor JS](http://naman.s3.amazonaws.com/react-timeago.png).
+- Install ![Meteor JS](https://www.meteor.com/install).
 - Install all required packages.
 ```
 npm install
@@ -16,4 +16,4 @@ npm install
 meteor run --settings local.json
 ```
 
-- By default, Meteor will use port `3000`. To view the running app go to : `localhost:3000` on your browser.
+- By default, Meteor will use port `3000`. To view the running app go to : `localhost:3000`
