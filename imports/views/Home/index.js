@@ -24,6 +24,7 @@ class Home extends Component {
   componentDidMount() {
     Meteor.call('stream', Session.get("accessToken"), Session.get("accessTokenSecret"), (error, result) => {
       if (!error) {
+        console.log(result)
         this.setState({
           loading: false,
           data: this.state.data.concat(result)
@@ -34,7 +35,7 @@ class Home extends Component {
         // console.error(error)
       }
     });
-      console.log(data)
+    Streamy.on('tweet', (data, s) => {
       this.setState({
         data: _.uniq([data].concat(this.state.data), item => item.id  )
       });
