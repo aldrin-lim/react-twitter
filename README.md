@@ -1,7 +1,7 @@
 # React Twitter
 
 
-A React JS application using Meteor JS and Twitter REST and Stream API.
+A React JS application using Meteor JS , Twitter REST API and Stream API.
 
 ## How to run:
 
