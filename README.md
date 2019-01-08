@@ -17,3 +17,5 @@ meteor run --settings local.json
 ```
 
 - By default, Meteor will use port `3000`. To view the running app go to : `localhost:3000`
+
+> Keys and Configuration are intentionally exposed
